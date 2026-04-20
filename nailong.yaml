@@ -1,0 +1,5 @@
+train: ./datasets/nailong_dataset/images/train
+val: ./datasets/nailong_dataset/images/val
+
+nc: 1
+names: ['nailong']
