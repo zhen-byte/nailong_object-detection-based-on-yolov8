@@ -1,17 +1,16 @@
 from ultralytics import YOLO
 
 if __name__ == '__main__':
-    # 1. 加载预训练模型 (推荐yolov8n.pt)
+    # 1. Load pretrained model
     model = YOLO('./yolov8n.pt')
 
-    # 2. 开始训练
+    # 2. Start training
     results = model.train(
-        data='nailong.yaml', # 你的数据配置文件
-        epochs=100,          # 训练轮数
-        imgsz=640,           # 输入图片尺寸
-        batch=8,             # 根据显存调整，如果显存不足报错，就调小它
-        device='0',          # '0'表示第一块GPU，没有GPU则改为 'cpu'
-        workers=4,           # 数据加载进程数
-        name='nailong_det'   # 训练结果保存的文件夹名
+        data='nailong.yaml',   # Dataset config file
+        epochs=100,            # Number of training epochs
+        imgsz=640,             # Input image size
+        batch=8,               # Adjust batch size if GPU memory is insufficient
+        device='0',            # '0' for first GPU, change to 'cpu' if no GPU available
+        workers=4,             # Number of data loading worker processes
+        name='nailong_det'     # Directory name for saving training results
     )
-

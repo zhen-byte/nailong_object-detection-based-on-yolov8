@@ -1,0 +1,32 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Claude session files
+.claude/
+
+# Datasets (large)
+datasets/
+
+# Videos (large)
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.flv
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Virtual environment
+venv/
+.venv/
+env/
