@@ -10,8 +10,7 @@ This project trains a YOLOv8 nano model on a custom dataset of labeled video fra
 
 | File | Purpose |
 |------|---------|
-| `gui.py` | **Graphical launcher** — the easiest way to run the project (double-click `run.bat`) |
-| `main.py` | Terminal-based menu (alternative to gui.py) |
+| `main.py` | **Tkinter GUI launcher** — easiest way to run the project (camera / video detection mode) |
 | `camera_detection.py` | Real-time detection using a webcam — detects Nailong from live camera feed |
 | `video_detection.py` | Inference on a video file — detects Nailong frame by frame, displays and saves the result |
 | `train.py` | Training script — loads YOLOv8n pretrained weights and trains on the custom dataset |
@@ -22,7 +21,7 @@ This project trains a YOLOv8 nano model on a custom dataset of labeled video fra
 - **Source**: Extracted video frames with hand-labeled bounding boxes
 - **Format**: YOLO label format — `class x_center y_center width height` (normalized)
 - **Classes**: 1 (`nailong`)
-- **Split**: Training (~150+ frames) / Validation (~20+ frames)
+- **Split**: Training / Validation
 - **Directory**: `datasets/nailong_dataset/`
 
 ### Training
@@ -35,20 +34,22 @@ python train.py
 - **Image size**: 640×640
 - **Batch size**: 8
 - **Epochs**: 100
-- **Device**: GPU
+- **Device**: GPU (or CPU)
 - **Output**: `runs/detect/nailong_det/weights/best.pt`
 
 ### Inference
 
 **GUI launcher (recommended):**
 ```bash
-python gui.py
-```
-Or simply double-click `run.bat`.
-
-**Terminal menu (alternative):**
-```bash
 python main.py
+```
+
+Then choose **Camera Detection** or **Video Detection** from the GUI.
+
+**Video detection (command line):**
+```python
+from video_detection import realtime_detect_and_save
+realtime_detect_and_save(source='your_video.mp4', save_video_path='output.avi')
 ```
 
 Press **Q** to exit the detection window.
@@ -63,7 +64,7 @@ Press **Q** to exit the detection window.
 ```bash
 python -m venv venv
 venv\Scripts\activate
-pip install ultralytics opencv-python
+pip install ultralytics opencv-python pillow
 ```
 
 **Verify the model weights exist** at `runs/detect/nailong_det/weights/best.pt` before running inference.
@@ -72,6 +73,11 @@ pip install ultralytics opencv-python
 
 The best model is saved at `runs/detect/nailong_det/weights/best.pt`. You can also download pretrained YOLOv8 weights from the [Ultralytics official repository](https://github.com/ultralytics/assets/releases).
 
-### Demo
+### Performance
 
-A sample detection result is available as `detection_example.mp4`.
+| Metric | Value |
+|--------|-------|
+| Precision | 96.36% |
+| Recall | 95.43% |
+| mAP@50 | 97.89% |
+| mAP@50-95 | 89.22% |
